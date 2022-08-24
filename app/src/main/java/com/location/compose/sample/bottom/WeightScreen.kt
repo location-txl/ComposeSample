@@ -15,4 +15,5 @@ sealed class WeightScreen(rotate:String, val rotateName:String = "weight/$rotate
     object Image : WeightScreen("image")
     object CheckBox : WeightScreen("image_filed")
     object RadioButton : WeightScreen("radio_button")
+    object Slider : WeightScreen("slider")
 }
