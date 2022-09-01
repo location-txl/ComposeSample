@@ -2,8 +2,9 @@ package com.location.compose.sample
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -97,7 +98,7 @@ fun ScreenWeightListWeight(
     items: List<String>,
     onClick: (index: Int, item: String) -> Unit
 ) {
-    LazyVerticalGrid(cells = GridCells.Fixed(2),
+    LazyVerticalGrid(columns = GridCells.Fixed(2),
         modifier = modifier,
         horizontalArrangement = Arrangement.Center,
         content = {
