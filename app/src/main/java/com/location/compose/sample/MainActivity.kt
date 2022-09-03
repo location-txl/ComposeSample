@@ -17,17 +17,16 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.location.compose.sample.bottom.HomeScreen
-import com.location.compose.sample.common.LayoutGraph
 import com.location.compose.sample.ui.theme.ComposeSampleTheme
 
 class MainActivity : ComponentActivity() {
     private val homeList by lazy {
         listOf(HomeScreen.Weight, HomeScreen.Layout)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,6 +41,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     @Composable
     private fun Home() {
         //控制器
@@ -57,17 +57,23 @@ class MainActivity : ComponentActivity() {
             ) {
 
                 weightGraph(
-                    navigateRotate = {
-                            route ->
+                    navigateRotate = { route ->
                         navController.navigate(route = route)
                     },
                     back = {
                         navController.popBackStack()
                     }
                 )
-                composable(HomeScreen.Layout.rotateName) {
-                    LayoutGraph(navController)
-                }
+
+                layoutGraph(
+                    navigateRotate = {
+                        route ->
+                        navController.navigate(route)
+                    },
+                    back = {
+                        navController.popBackStack()
+                    }
+                )
 
             }
         }

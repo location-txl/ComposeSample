@@ -112,37 +112,6 @@ inline fun LazyListScope.itemTitle(
 
 
 @Composable
-fun LayoutGraph(nav: NavHostController, modifier: Modifier = Modifier) {
-    ScreenLayout(modifier)
-}
-
-@Composable
-fun ScreenLayout(modifier: Modifier = Modifier) {
-
-//    Text(text = "ScreenLayout")
-    //页面切换后保存状态
-    var value by rememberSaveable {
-        mutableStateOf("默认")
-    }
-    Log.d("txlTest", "ScreenWeight")
-    var count: Int by rememberSaveable {
-        mutableStateOf(0)
-    }
-    Column {
-        Text(text = "layout")
-        Text(text = value)
-        Button(onClick = {
-            count += 1
-            Log.d("txlTest", "ScreenWeight click count:$count")
-            value = "count:${count}"
-        }) {
-            Text(text = "点击")
-        }
-    }
-}
-
-
-@Composable
 fun TitleBar(title: String, back: () -> Unit, content: @Composable () -> Unit) {
     Scaffold(
         topBar = {
@@ -348,4 +317,5 @@ data class IconCheckBoxStyle(@DrawableRes val checkedRes: Int, @DrawableRes val 
 
 
 val LocalIconCheckStyle = staticCompositionLocalOf { IconCheckBoxStyle(R.drawable.check_box_checked, R.drawable.check_box_normal) }
+
 
