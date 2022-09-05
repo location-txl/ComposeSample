@@ -35,8 +35,19 @@ fun NavGraphBuilder.layoutGraph(navigateRotate: (String) -> Unit, back: () -> Un
         }
         for (layoutItem in LayoutScreen.LayoutItems) {
             composable(route = layoutItem.routeName) {
-                layoutItem.content(back)
+                layoutItem.content(back, navigateRotate)
             }
+            fun composeChildScreen(screen: LayoutScreen) {
+                screen.subScreen?.let {
+                    for (childScreen in it) {
+                        composable(route = childScreen.routeName) {
+                            childScreen.content(back, navigateRotate)
+                        }
+                        composeChildScreen(childScreen)
+                    }
+                }
+            }
+            composeChildScreen(layoutItem)
         }
     }
 }
