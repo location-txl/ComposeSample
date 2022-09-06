@@ -8,6 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.location.compose.sample.layout.LayoutBoxSample
+import com.location.compose.sample.layout.LayoutRowHomeSample
+import com.location.compose.sample.layout.LayoutRowSample
+import com.location.compose.sample.layout.LayoutRowWeightSample
 
 /**
  *
@@ -35,11 +38,20 @@ private object Box : LayoutScreen("box", content = { back, _ ->
     LayoutBoxSample(back)
 })
 
-private object RowHome : LayoutScreen("row", content = { back, _ ->
-    Payload(back)
+private object RowHome : LayoutScreen("row", subScreen =  listOf(RowWeight, Row), content = { back, navigateRotate ->
+    LayoutRowHomeSample(back,  navigateRotate)
 })
 
-private object Column : LayoutScreen("column", content = { back ->
+object RowWeight : LayoutScreen("rowWeight", content = { back, _ ->
+    LayoutRowWeightSample(back)
+})
+
+object Row : LayoutScreen("rowDef", content = { back, _ ->
+    LayoutRowSample(back)
+})
+
+
+private object Column : LayoutScreen("column", content = { back, _ ->
     Payload(back)
 })
 

@@ -206,6 +206,26 @@ fun IconCheckBox(
     }
 }
 
+
+@Composable
+fun BackgroundWeight(color: Color, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.background(color))
+}
+
+@Composable
+fun HorizontalDivide(
+    modifier: Modifier = Modifier,
+    style: DivideStyle = LocalHorDivideStyle.current
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = style.padding, bottom = style.padding)
+            .height(style.size)
+            .background(style.color)
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewIconCheckBox() {
@@ -315,7 +335,13 @@ data class ButtonState(val text: String, val textColor: Color, val backgroundCol
 
 data class IconCheckBoxStyle(@DrawableRes val checkedRes: Int, @DrawableRes val uncheckedRes: Int, val space: Dp = 2.dp)
 
+data class DivideStyle(val size:Dp, val padding:Dp, val color: Color)
+
 
 val LocalIconCheckStyle = staticCompositionLocalOf { IconCheckBoxStyle(R.drawable.check_box_checked, R.drawable.check_box_normal) }
+
+val LocalHorDivideStyle = compositionLocalOf {
+    DivideStyle(3.dp, 5.dp, Color.Gray.copy(alpha = 0.5f))
+}
 
 

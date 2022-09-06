@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.location.compose.sample.common.BackgroundWeight
 import com.location.compose.sample.common.TitleBar
 
 /**
@@ -44,8 +45,3 @@ fun LayoutBoxSample(back: () -> Unit) {
     }
 }
 
-@Composable
-private fun BackgroundWeight(color: Color, modifier: Modifier = Modifier) {
-    Box(modifier = modifier.background(color)) {
-    }
-}
