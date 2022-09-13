@@ -7,10 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.location.compose.sample.layout.LayoutBoxSample
-import com.location.compose.sample.layout.LayoutRowHomeSample
-import com.location.compose.sample.layout.LayoutRowSample
-import com.location.compose.sample.layout.LayoutRowWeightSample
+import com.location.compose.sample.layout.*
 
 /**
  *
@@ -29,7 +26,7 @@ sealed class LayoutScreen(
 ) {
     companion object {
         const val START = "Layout/home"
-        val LayoutItems = listOf(Box, RowHome, Column)
+        val LayoutItems = listOf(Box, RowHome, ColumnHome)
     }
 }
 
@@ -51,8 +48,16 @@ object Row : LayoutScreen("rowDef", content = { back, _ ->
 })
 
 
-private object Column : LayoutScreen("column", content = { back, _ ->
-    Payload(back)
+private object ColumnHome : LayoutScreen("column",  subScreen =  listOf(ColumnWeight, Column), content = { back, navigateRotate ->
+    LayoutColumnHomeSample(back, navigateRotate)
+})
+
+object ColumnWeight : LayoutScreen("columnWeight", content = { back, _ ->
+    LayoutColumnWeightSample(back)
+})
+
+object Column : LayoutScreen("rowDef", content = { back, _ ->
+    LayoutColumnSample(back)
 })
 
 
