@@ -26,7 +26,7 @@ sealed class LayoutScreen(
 ) {
     companion object {
         const val START = "Layout/home"
-        val LayoutItems = listOf(Box, RowHome, ColumnHome)
+        val LayoutItems = listOf(Box, RowHome, ColumnHome, LazyListHome)
     }
 }
 
@@ -60,6 +60,25 @@ object Column : LayoutScreen("rowDef", content = { back, _ ->
     LayoutColumnSample(back)
 })
 
+private object LazyListHome:LayoutScreen("lazyList", subScreen = listOf(LazyListCommon, LazyListStickyHeader, LazyListItemKey), content = {
+    back, navigateRotate ->
+    LayoutLazyList(back, navigateRotate)
+})
+
+object LazyListCommon : LayoutScreen("lazyListCommon", content = {
+    back, _ ->
+    LayoutLazyListCommon(back)
+})
+
+object LazyListStickyHeader: LayoutScreen("lazyListStickyHeader", content = {
+        back, _ ->
+    Payload(back)
+})
+
+object LazyListItemKey: LayoutScreen("lazyListItemKey", content = {
+    back, _ ->
+    Payload(back)
+})
 
 @Composable
 private inline fun Payload(back: () -> Unit) {
