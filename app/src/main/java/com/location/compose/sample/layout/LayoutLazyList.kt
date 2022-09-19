@@ -232,3 +232,12 @@ fun PreviewLayoutLazyListCommon() {
 
     }
 }
+
+
+@Preview
+@Composable
+fun PreviewLayoutStickHeader() {
+    LayoutLazyListStickHeader {
+
+    }
+}
