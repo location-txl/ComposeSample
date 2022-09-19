@@ -1,6 +1,7 @@
 package com.location.compose.sample.layout
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -163,6 +164,63 @@ fun LayoutLazyListCommon(back: () -> Unit) {
             }
         }
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun LayoutLazyListStickHeader(back: () -> Unit) {
+    TitleBar(title = "Lazy", back = back) {
+        Column {
+            Text(text = "LazyColumn可以很方便的实现stickyHeader吸顶效果 常见如手机的通讯录")
+            val dataList = remember {
+                val names = listOf("小明", "小红", "小蓝", "小光", "小丽")
+                val contactList = mutableListOf<Contact>()
+                for (name in  names){
+                    contactList.add(Contact.ContactHeader(name))
+                    for(i in 1..10){
+                        contactList.add(Contact.ContactUser("${name}_i"))
+                    }
+                }
+                contactList
+            }
+            LazyColumn() {
+                dataList.forEach { contact ->
+                    when(contact){
+                        is Contact.ContactHeader -> {
+                            stickyHeader {
+                                Box(modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.Gray)
+                                    .padding(10.dp)
+                                ) {
+                                    Text(text = contact.name, color = Color.White)
+                                }
+                            }
+                        }
+                        is Contact.ContactUser -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(100.dp)
+                                        .background(Color.Cyan.copy(0.8f)),
+                                    contentAlignment = Alignment.CenterStart
+                                ) {
+                                    Text(text = contact.name)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+private sealed class Contact() {
+    data class ContactHeader(val name: String) : Contact()
+    data class ContactUser(val name: String) : Contact()
 }
 
 private data class Item(val text: String, val color: Color)

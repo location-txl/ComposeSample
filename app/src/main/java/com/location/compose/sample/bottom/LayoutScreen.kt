@@ -72,7 +72,7 @@ object LazyListCommon : LayoutScreen("lazyListCommon", content = {
 
 object LazyListStickyHeader: LayoutScreen("lazyListStickyHeader", content = {
         back, _ ->
-    Payload(back)
+    LayoutLazyListStickHeader(back)
 })
 
 object LazyListItemKey: LayoutScreen("lazyListItemKey", content = {
