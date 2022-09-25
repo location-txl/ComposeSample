@@ -26,7 +26,7 @@ sealed class LayoutScreen(
 ) {
     companion object {
         const val START = "Layout/home"
-        val LayoutItems = listOf(Box, RowHome, ColumnHome, LazyListHome)
+        val LayoutItems = listOf(Box, RowHome, ColumnHome, LazyListHome, LayoutConstraintLayout)
     }
 }
 
@@ -83,6 +83,12 @@ object LazyListItemKey: LayoutScreen("lazyListItemKey", content = {
 object LazyListItemType: LayoutScreen("lazyListItemType", content = {
     back, _ ->
     LayoutLazyListItemType(back)
+})
+
+
+private object LayoutConstraintLayout:LayoutScreen("constraintLayout", content = {
+        back, _ ->
+    LayoutConstraintLayout(back)
 })
 
 @Composable
