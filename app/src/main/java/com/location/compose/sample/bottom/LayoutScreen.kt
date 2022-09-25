@@ -60,7 +60,7 @@ object Column : LayoutScreen("rowDef", content = { back, _ ->
     LayoutColumnSample(back)
 })
 
-private object LazyListHome:LayoutScreen("lazyList", subScreen = listOf(LazyListCommon, LazyListStickyHeader, LazyListItemKey), content = {
+private object LazyListHome:LayoutScreen("lazyList", subScreen = listOf(LazyListCommon, LazyListStickyHeader, LazyListItemKey, LazyListItemType), content = {
     back, navigateRotate ->
     LayoutLazyList(back, navigateRotate)
 })
@@ -78,6 +78,11 @@ object LazyListStickyHeader: LayoutScreen("lazyListStickyHeader", content = {
 object LazyListItemKey: LayoutScreen("lazyListItemKey", content = {
     back, _ ->
     Payload(back)
+})
+
+object LazyListItemType: LayoutScreen("lazyListItemType", content = {
+    back, _ ->
+    LayoutLazyListItemType(back)
 })
 
 @Composable

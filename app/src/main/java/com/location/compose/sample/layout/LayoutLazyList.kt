@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.location.compose.sample.bottom.LazyListCommon
 import com.location.compose.sample.bottom.LazyListItemKey
+import com.location.compose.sample.bottom.LazyListItemType
 import com.location.compose.sample.bottom.LazyListStickyHeader
 import com.location.compose.sample.common.TitleBar
 import kotlinx.coroutines.launch
@@ -71,6 +72,16 @@ fun LayoutLazyList(
                             navigateRotate(LazyListItemKey.routeName)
                         }) {
                         Text(text = "layoutColumn itemKey")
+                    }
+                }
+
+                item {
+                    OutlinedButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            navigateRotate(LazyListItemType.routeName)
+                        }) {
+                        Text(text = "layoutColumn itemType")
                     }
                 }
             }
@@ -218,12 +229,64 @@ fun LayoutLazyListStickHeader(back: () -> Unit) {
 
 }
 
+@Composable
+fun LayoutLazyListItemType(back: () -> Unit) {
+    TitleBar(title = "LazyColumn ItemType", back = back) {
+        Column {
+            Text(text = "LazyColumn 在配置item时可以设置itemType 更好的让compose进行服用 提升流畅度")
+            val dataList = remember {
+                val names = listOf("小明", "小红", "小蓝", "小光", "小丽")
+                val contactList = mutableListOf<Contact>()
+                for (name in  names){
+                    contactList.add(Contact.ContactHeader(name))
+                    for(i in 1..10){
+                        contactList.add(Contact.ContactUser("${name}_i"))
+                    }
+                }
+                contactList
+            }
+            LazyColumn{
+                dataList.forEach { contact ->
+                    when(contact){
+                        is Contact.ContactHeader -> {
+                            item(contentType = { 1 }) { //注意这里的contentType
+                                Box(modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.Gray)
+                                    .padding(10.dp)
+                                ) {
+                                    Text(text = contact.name, color = Color.White)
+                                }
+                            }
+                        }
+                        is Contact.ContactUser -> {
+                            item(contentType = { 2 }) {//注意这里的contentType
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(100.dp)
+                                        .background(Color.Cyan.copy(0.8f)),
+                                    contentAlignment = Alignment.CenterStart
+                                ) {
+                                    Text(text = contact.name)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
 private sealed class Contact() {
     data class ContactHeader(val name: String) : Contact()
     data class ContactUser(val name: String) : Contact()
 }
 
 private data class Item(val text: String, val color: Color)
+
 
 @Preview
 @Composable
@@ -238,6 +301,14 @@ fun PreviewLayoutLazyListCommon() {
 @Composable
 fun PreviewLayoutStickHeader() {
     LayoutLazyListStickHeader {
+
+    }
+}
+
+@Preview
+@Composable
+fun PreviewLayoutLazyListItemType() {
+    LayoutLazyListItemType {
 
     }
 }
