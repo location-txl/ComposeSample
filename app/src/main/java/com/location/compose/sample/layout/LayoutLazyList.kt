@@ -233,7 +233,7 @@ fun LayoutLazyListStickHeader(back: () -> Unit) {
 fun LayoutLazyListItemType(back: () -> Unit) {
     TitleBar(title = "LazyColumn ItemType", back = back) {
         Column {
-            Text(text = "LazyColumn 在配置item时可以设置itemType 更好的让compose进行服用 提升流畅度")
+            Text(text = "LazyColumn 在配置item时可以设置itemType 更好的让compose进行复用 提升流畅度")
             val dataList = remember {
                 val names = listOf("小明", "小红", "小蓝", "小光", "小丽")
                 val contactList = mutableListOf<Contact>()
