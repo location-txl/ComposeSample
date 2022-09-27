@@ -77,7 +77,7 @@ object LazyListStickyHeader: LayoutScreen("lazyListStickyHeader", content = {
 
 object LazyListItemKey: LayoutScreen("lazyListItemKey", content = {
     back, _ ->
-    Payload(back)
+    LayoutLazyListItemKey(back)
 })
 
 object LazyListItemType: LayoutScreen("lazyListItemType", content = {

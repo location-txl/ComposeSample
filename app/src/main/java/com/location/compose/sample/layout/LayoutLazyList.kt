@@ -280,12 +280,74 @@ fun LayoutLazyListItemType(back: () -> Unit) {
     }
 }
 
+
+@Composable
+fun LayoutLazyListItemKey(back: () -> Unit) {
+
+    TitleBar(title = "LazyColumn itemKey", back = back) {
+        Column {
+            Text(
+                text = "当我们在使用LazyColumn时，如果我们的item是动态变化的，那么我们就需要使用itemKey来保证item的唯一性 否则由于导致item的复用，导致item的状态混乱 itemKey的值可以是任意的，但是必须保证itemKey的值是唯一的"
+            )
+            var addIndex = remember { 2000 }
+            val dataList = remember {
+                mutableStateListOf<Item>().apply {
+                    var colorIndex = 0
+                    for (i in 0..1000) {
+                        if (colorIndex >= colors.size) {
+                            colorIndex = 0
+                        }
+                        add(Item("content:$i", colors[colorIndex++]))
+                    }
+                }
+            }
+
+            Button(onClick = {
+                dataList.add(1, Item("content:${addIndex++}", colors[addIndex%3]))
+            }) {
+                Text(text = "添加item到第一项")
+            }
+
+            LazyColumn {
+                items(dataList, key = {
+                    it.text
+                }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .background(it.color),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column {
+                            Text(text = it.text)
+                            Text(text = "状态由data维护")
+                            TextField(value = it.content.value, onValueChange = {
+                                newText ->
+                                it.content.value = newText
+                            })
+                            Text(text = "状态由item维护 item变化时会导致item的复用 状态混乱 添加itemKey后item变化时状态不会混乱")
+                            var text by remember { mutableStateOf("") }
+                            TextField(value = text, onValueChange = {
+                                    newText ->
+                                text = newText
+                            })
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
 private sealed class Contact() {
     data class ContactHeader(val name: String) : Contact()
     data class ContactUser(val name: String) : Contact()
 }
 
-private data class Item(val text: String, val color: Color)
+
+private data class Item(val text: String, val color: Color, val content:MutableState<String> = mutableStateOf(""))
 
 
 @Preview
