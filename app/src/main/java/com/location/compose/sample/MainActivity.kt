@@ -24,7 +24,7 @@ import com.location.compose.sample.ui.theme.ComposeSampleTheme
 
 class MainActivity : ComponentActivity() {
     private val homeList by lazy {
-        listOf(HomeScreen.Weight, HomeScreen.Layout)
+        listOf(HomeScreen.Weight, HomeScreen.Layout, HomeScreen.Anim)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +66,16 @@ class MainActivity : ComponentActivity() {
                 )
 
                 layoutGraph(
+                    navigateRotate = {
+                        route ->
+                        navController.navigate(route)
+                    },
+                    back = {
+                        navController.popBackStack()
+                    }
+                )
+
+                animGraph(
                     navigateRotate = {
                         route ->
                         navController.navigate(route)
