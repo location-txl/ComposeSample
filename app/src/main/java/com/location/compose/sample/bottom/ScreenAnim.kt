@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.location.compose.sample.anim.AnimXXXStateSample
 
 /**
  *
@@ -30,7 +31,7 @@ sealed class ScreenAnim(
 }
 
 private object ScreenAnimAnimateXxxAsState : ScreenAnim("AnimateXxxAsState", content = { back, _ ->
-    Payload(back)
+    AnimXXXStateSample(back)
 })
 
 
