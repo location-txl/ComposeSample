@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.location.compose.sample.anim.AnimXXXStateSample
+import com.location.compose.sample.anim.AnimatableSample
 
 /**
  *
@@ -26,12 +27,16 @@ sealed class ScreenAnim(
 ) {
     companion object {
         const val START = "Anim/home"
-        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState)
+        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable)
     }
 }
 
 private object ScreenAnimAnimateXxxAsState : ScreenAnim("AnimateXxxAsState", content = { back, _ ->
     AnimXXXStateSample(back)
+})
+
+private object ScreenAnimAnimatable : ScreenAnim("Animatable", content = { back, _ ->
+    AnimatableSample(back)
 })
 
 

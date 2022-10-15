@@ -1,6 +1,7 @@
 package com.location.compose.sample.anim
 
 import android.util.Log
+import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.location.compose.sample.common.TitleBar
 
-
+/**
+ * animateDpAsState 内部也是使用 Animatable 实现的 animateDpAsState提升了便携性 针对的是状态切换
+ */
 @Composable
 fun AnimXXXStateSample(back: () -> Unit) {
     TitleBar(title = "AnimXXXState", back = back) {
