@@ -37,13 +37,13 @@ fun NavGraphBuilder.animGraph(navigateRotate: (String) -> Unit, back: () -> Unit
         }
         for (animItem in ScreenAnim.AnimItems) {
             composable(route = animItem.routeName) {
-                animItem.content(back, navigateRotate)
+                animItem.content(animItem.subScreen, back, navigateRotate)
             }
             fun composeChildScreen(screen: ScreenAnim) {
                 screen.subScreen?.let {
                     for (childScreen in it) {
                         composable(route = childScreen.routeName) {
-                            childScreen.content(back, navigateRotate)
+                            childScreen.content(childScreen.subScreen, back, navigateRotate)
                         }
                         composeChildScreen(childScreen)
                     }

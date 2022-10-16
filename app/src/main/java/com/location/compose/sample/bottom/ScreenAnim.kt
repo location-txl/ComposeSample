@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.location.compose.sample.anim.AnimSpecHomeSample
+import com.location.compose.sample.anim.AnimTweenSpecSample
 import com.location.compose.sample.anim.AnimXXXStateSample
 import com.location.compose.sample.anim.AnimatableSample
 
@@ -21,23 +23,34 @@ sealed class ScreenAnim(
     val routeName: String = "Anim/$name",
     val subScreen: List<ScreenAnim>? = null,
     val content: @Composable (
+        subScreen: List<ScreenAnim>?,
         back: () -> Unit,
         navigateRotate: (String) -> Unit
     ) -> Unit
 ) {
     companion object {
         const val START = "Anim/home"
-        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable)
+        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec)
     }
 }
 
-private object ScreenAnimAnimateXxxAsState : ScreenAnim("AnimateXxxAsState", content = { back, _ ->
+private object ScreenAnimAnimateXxxAsState : ScreenAnim("AnimateXxxAsState", content = { _,back, _ ->
     AnimXXXStateSample(back)
 })
 
-private object ScreenAnimAnimatable : ScreenAnim("Animatable", content = { back, _ ->
+private object ScreenAnimAnimatable : ScreenAnim("Animatable", content = { _, back, _ ->
     AnimatableSample(back)
 })
+
+
+private object ScreenAnimAnimationSpec : ScreenAnim("AnimationSpec", subScreen = listOf(ScreenSpecTweenSpec), content = {subScreen, back, nav ->
+    AnimSpecHomeSample(subScreen!!, back, nav)
+})
+
+private object ScreenSpecTweenSpec:ScreenAnim("TweenSpec",content = {_, back, _ ->
+    AnimTweenSpecSample(back)
+})
+
 
 
 @Composable
