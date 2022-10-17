@@ -40,7 +40,7 @@ private object ScreenAnimAnimatable : ScreenAnim("Animatable", content = { _, ba
 })
 
 
-private object ScreenAnimAnimationSpec : ScreenAnim("AnimationSpec", subScreen = listOf(ScreenSpecTweenSpec, ScreenSpecSnapSpec), content = {subScreen, back, nav ->
+private object ScreenAnimAnimationSpec : ScreenAnim("AnimationSpec", subScreen = listOf(ScreenSpecTweenSpec, ScreenSpecSnapSpec, ScreenSpecKeyFrameSpec), content = {subScreen, back, nav ->
     AnimSpecHomeSample(subScreen!!, back, nav)
 })
 
@@ -50,6 +50,10 @@ private object ScreenSpecTweenSpec:ScreenAnim("TweenSpec",content = {_, back, _ 
 
 private object ScreenSpecSnapSpec:ScreenAnim("SnapSpec",content = {_, back, _ ->
     AnimSnapSpecSample(back)
+})
+
+private object ScreenSpecKeyFrameSpec:ScreenAnim("KeyFrameSpec",content = {_, back, _ ->
+    AnimKeyFrameSpecSample(back)
 })
 
 

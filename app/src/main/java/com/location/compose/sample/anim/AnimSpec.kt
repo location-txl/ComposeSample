@@ -1,5 +1,6 @@
 package com.location.compose.sample.anim
 
+import android.animation.Keyframe
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -143,6 +144,54 @@ fun AnimSnapSpecSample(back: () -> Unit) {
     }
 }
 
+/**
+ * [KeyframesSpec] 可以配置关键帧 和原生View[Keyframe]差不多
+ * 具体数值 at 时间(毫秒) width 动画曲线
+ * @param back Function0<Unit>
+ */
+@Composable
+fun AnimKeyFrameSpecSample(back: () -> Unit){
+
+    TitleBar(title = "KeyFrameSpec", back = back) {
+        Column{
+            val animOffset = remember {
+                Animatable(0.dp,Dp.VectorConverter)
+            }
+            val coroutineScope = rememberCoroutineScope()
+            Box(modifier = Modifier
+                .size(100.dp)
+                .offset(x = animOffset.value, y = animOffset.value)
+                .background(Color.Green))
+            Button(onClick = {
+                coroutineScope.launch {
+                    val targetValue = if(animOffset.value == 0.dp) 200.dp else 0.dp
+                    animOffset.animateTo(
+                        targetValue,
+                        KeyframesSpec(KeyframesSpec.KeyframesSpecConfig<Dp>().apply {
+                            durationMillis = 2000
+                            val easing = FastOutLinearInEasing
+                            if(targetValue == 200.dp){
+                                0.dp at 0 with easing
+                                100.dp at 500 with easing
+                                300.dp at 1500 with easing
+                                200.dp at 2000 with easing
+                            }else{
+                                200.dp at 0 with easing
+                                190.dp at 500 with easing
+                                (-50).dp at 1500 with easing
+                                0.dp at 2000 with easing
+                            }
+
+                        })
+                    )
+                }
+            }) {
+                Text(text = "KeyFrameSpec动画")
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun AnimTweenSpecPreview() {
@@ -155,6 +204,14 @@ fun AnimTweenSpecPreview() {
 @Composable
 fun AnimSnapSpecSamplePreview() {
     AnimSnapSpecSample{
+
+    }
+}
+
+@Preview
+@Composable
+fun AnimKeyFrameSpecSamplePreview() {
+    AnimKeyFrameSpecSample{
 
     }
 }
