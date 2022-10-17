@@ -7,10 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.location.compose.sample.anim.AnimSpecHomeSample
-import com.location.compose.sample.anim.AnimTweenSpecSample
-import com.location.compose.sample.anim.AnimXXXStateSample
-import com.location.compose.sample.anim.AnimatableSample
+import com.location.compose.sample.anim.*
 
 /**
  *
@@ -43,13 +40,19 @@ private object ScreenAnimAnimatable : ScreenAnim("Animatable", content = { _, ba
 })
 
 
-private object ScreenAnimAnimationSpec : ScreenAnim("AnimationSpec", subScreen = listOf(ScreenSpecTweenSpec), content = {subScreen, back, nav ->
+private object ScreenAnimAnimationSpec : ScreenAnim("AnimationSpec", subScreen = listOf(ScreenSpecTweenSpec, ScreenSpecSnapSpec), content = {subScreen, back, nav ->
     AnimSpecHomeSample(subScreen!!, back, nav)
 })
 
 private object ScreenSpecTweenSpec:ScreenAnim("TweenSpec",content = {_, back, _ ->
     AnimTweenSpecSample(back)
 })
+
+private object ScreenSpecSnapSpec:ScreenAnim("SnapSpec",content = {_, back, _ ->
+    AnimSnapSpecSample(back)
+})
+
+
 
 
 

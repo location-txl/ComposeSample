@@ -116,10 +116,45 @@ fun AnimTweenSpecSample(back: () -> Unit) {
     }
 }
 
+/**
+ * [SnapSpec] 顺间完成的动画 和[Animatable.snapTo]的作用一样 不同的时[SnapSpec]可以设置延时
+ */
+@Composable
+fun AnimSnapSpecSample(back: () -> Unit) {
+    TitleBar(title = "SnapSpec", back = back) {
+        Column {
+            val animOffset = remember {
+                Animatable(0.dp,Dp.VectorConverter)
+            }
+            val coroutineScope = rememberCoroutineScope()
+            Box(modifier = Modifier
+                .size(100.dp)
+                .offset(x = animOffset.value, y = animOffset.value)
+                .background(Color.Green))
+            Button(onClick = {
+                coroutineScope.launch {
+                    val targetValue = if(animOffset.value == 0.dp) 200.dp else 0.dp
+                    animOffset.animateTo(targetValue, SnapSpec(delay = 1000))
+                }
+            }) {
+                Text(text = "SnapSpec动画")
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
-fun AnimSpecPreview() {
+fun AnimTweenSpecPreview() {
     AnimTweenSpecSample{
+
+    }
+}
+
+@Preview
+@Composable
+fun AnimSnapSpecSamplePreview() {
+    AnimSnapSpecSample{
 
     }
 }
