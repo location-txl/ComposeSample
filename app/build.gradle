@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.location.compose.sample"
         minSdk 27
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -43,6 +43,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace 'com.location.compose.sample'
 }
 
 dependencies {
