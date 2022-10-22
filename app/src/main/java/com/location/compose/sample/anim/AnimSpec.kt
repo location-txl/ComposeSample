@@ -192,6 +192,120 @@ fun AnimKeyFrameSpecSample(back: () -> Unit){
     }
 }
 
+@Composable
+fun AnimRepeatableSpecSample(back: () -> Unit){
+    TitleBar(title = "RepeatableSpec", back = back) {
+        Column{
+            val animOffset = remember {
+                Animatable(0.dp,Dp.VectorConverter)
+            }
+            val coroutineScope = rememberCoroutineScope()
+            Box(modifier = Modifier
+                .size(100.dp)
+                .offset(x = animOffset.value, y = animOffset.value)
+                .background(Color.Green))
+            Button(onClick = {
+                coroutineScope.launch {
+                    val targetValue = if(animOffset.value == 0.dp) 200.dp else 0.dp
+                    animOffset.animateTo(
+                        targetValue,
+                        RepeatableSpec(
+                            iterations = 3,
+                            repeatMode = RepeatMode.Reverse,
+                            animation = TweenSpec(1000, easing = FastOutSlowInEasing)
+                        )
+                    )
+                }
+            }) {
+                Text(text = "RepeatableSpec动画")
+            }
+        }
+    }
+}
+
+/**
+ * [InfiniteRepeatableSpec] 无限循环动画
+ * [RepeatMode.Reverse] 从头到尾再从尾到头
+ * [RepeatMode.Restart] 从头到尾再从头到尾
+ * [InfiniteRepeatableSpec.initialStartOffset] 设置动画延迟
+ * [StartOffsetType.Delay] 延迟多少毫秒再开始
+ * [StartOffsetType.FastForward] 快进到多少毫秒再开始
+ */
+@Composable
+fun AnimInfiniteRepeatableSpecSample(back: () -> Unit){
+    TitleBar(title = "InfiniteRepeatableSpec", back = back) {
+        Column{
+            val animOffset = remember {
+                Animatable(0.dp,Dp.VectorConverter)
+            }
+            val coroutineScope = rememberCoroutineScope()
+            Box(modifier = Modifier
+                .size(100.dp)
+                .offset(x = animOffset.value, y = animOffset.value)
+                .background(Color.Green))
+            Button(onClick = {
+                coroutineScope.launch {
+                    val targetValue = if(animOffset.value == 0.dp) 200.dp else 0.dp
+                    animOffset.animateTo(
+                        targetValue,
+                        infiniteRepeatable(
+                            animation = TweenSpec(1000, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        )
+                    )
+                }
+            }) {
+                Text(text = "InfiniteRepeatableSpec动画")
+            }
+        }
+    }
+}
+
+/**
+ * [SpringSpec] 弹簧物理模型动画
+ * [SpringSpec.dampingRatio] 阻尼系数 0-1 越小弹的越厉害
+ * [SpringSpec.stiffness] 刚度系数 越大越有力 越快
+ * [SpringSpec.visibilityThreshold] 可见性阙值 默认是0.1 代表动画到什么程度结束
+ * [Animatable.animateTo] 里面的initialVelocity 代表的是初始速度
+ */
+@Composable
+fun AnimSpringSpecSample(back: () -> Unit) {
+
+    TitleBar(title = "SpringSpec", back = back) {
+        Column{
+            val animOffset = remember {
+                Animatable(0.dp,Dp.VectorConverter)
+            }
+            var enable by remember {
+                mutableStateOf(true)
+            }
+            val coroutineScope = rememberCoroutineScope()
+            Box(modifier = Modifier
+                .size(100.dp)
+                .offset(x = animOffset.value, y = animOffset.value)
+                .background(Color.Green))
+            Button(
+                enabled = enable,
+                onClick = {
+                coroutineScope.launch {
+                    val targetValue = if(animOffset.value == 0.dp) 200.dp else 0.dp
+                    enable = false
+                    animOffset.animateTo(
+                        targetValue,
+                        spring(
+                            dampingRatio = 0.1f,
+                            stiffness = Spring.StiffnessHigh
+                        )
+                    )
+                    enable = true
+                }
+            }) {
+                Text(text = "SpringSpec动画")
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun AnimTweenSpecPreview() {
@@ -212,6 +326,30 @@ fun AnimSnapSpecSamplePreview() {
 @Composable
 fun AnimKeyFrameSpecSamplePreview() {
     AnimKeyFrameSpecSample{
+
+    }
+}
+
+@Preview
+@Composable
+fun AnimRepeatableSpecSamplePreview() {
+    AnimRepeatableSpecSample{
+
+    }
+}
+
+@Preview
+@Composable
+fun AnimInfiniteRepeatableSpecSamplePreview() {
+    AnimInfiniteRepeatableSpecSample{
+
+    }
+}
+
+@Preview
+@Composable
+fun AnimSpringSpecSamplePreview() {
+    AnimSpringSpecSample{
 
     }
 }
