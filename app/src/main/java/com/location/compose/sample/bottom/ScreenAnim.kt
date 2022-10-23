@@ -27,7 +27,7 @@ sealed class ScreenAnim(
 ) {
     companion object {
         const val START = "Anim/home"
-        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec)
+        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec, ScreenAnimDecay, ScreenAnimState)
     }
 }
 
@@ -75,6 +75,16 @@ private object ScreenInfiniteRepeatableSpec:ScreenAnim("InfiniteRepeatableSpec",
 private object ScreenSpringSpec:ScreenAnim("SpringSpec",content = {_, back, _ ->
     AnimSpringSpecSample(back)
 })
+
+
+private object ScreenAnimDecay:ScreenAnim("Decay", content = {_, back, _ ->
+    AnimDecaySample(back)
+})
+
+private object ScreenAnimState:ScreenAnim("动画状态", routeName = "Anim/state", content = { _, back, _ ->
+    AnimStateSample(back)
+})
+
 
 
 
