@@ -27,7 +27,7 @@ sealed class ScreenAnim(
 ) {
     companion object {
         const val START = "Anim/home"
-        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec, ScreenAnimDecay, ScreenAnimState)
+        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec, ScreenAnimDecay, ScreenAnimState, ScreenAnimatedVisibility)
     }
 }
 
@@ -86,6 +86,11 @@ private object ScreenAnimState:ScreenAnim("动画状态", routeName = "Anim/stat
 })
 
 
+private object ScreenAnimatedVisibility:ScreenAnim("AnimatedVisibility", content = {_, back, _ ->
+    AnimatedVisibilitySample(back)
+})
+
+
 
 
 
@@ -96,4 +101,5 @@ private inline fun Payload(back: () -> Unit) {
         Text(text = "占位界面", textAlign =  TextAlign.Center)
     }
 }
+
 
