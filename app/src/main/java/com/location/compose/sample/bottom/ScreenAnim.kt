@@ -27,7 +27,17 @@ sealed class ScreenAnim(
 ) {
     companion object {
         const val START = "Anim/home"
-        val AnimItems:List<ScreenAnim> = listOf(ScreenAnimAnimateXxxAsState, ScreenAnimAnimatable, ScreenAnimAnimationSpec, ScreenAnimDecay, ScreenAnimState, ScreenAnimatedVisibility)
+        val AnimItems: List<ScreenAnim> = listOf(
+            ScreenAnimAnimateXxxAsState,
+            ScreenAnimAnimatable,
+            ScreenAnimAnimationSpec,
+            ScreenAnimDecay,
+            ScreenAnimState,
+            ScreenAnimTransition,
+            ScreenAnimatedVisibility,
+            ScreenAnimCrossfade,
+            ScreenAnimContent,
+        )
     }
 }
 
@@ -89,6 +99,19 @@ private object ScreenAnimState:ScreenAnim("动画状态", routeName = "Anim/stat
 private object ScreenAnimatedVisibility:ScreenAnim("AnimatedVisibility", content = {_, back, _ ->
     AnimatedVisibilitySample(back)
 })
+
+private object ScreenAnimCrossfade:ScreenAnim("Crossfade", content = {_, back, _ ->
+    AnimatedCrossfadeSample(back)
+})
+
+private object ScreenAnimContent:ScreenAnim("AnimatedContent", content = {_, back, _ ->
+    AnimatedContentSample(back)
+})
+
+private object ScreenAnimTransition:ScreenAnim("Transition", content = {_, back, _ ->
+    AnimTransitionSample(back)
+})
+
 
 
 
