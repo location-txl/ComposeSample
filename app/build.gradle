@@ -67,5 +67,8 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.20"
+
+
 
 }

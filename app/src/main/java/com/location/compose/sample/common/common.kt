@@ -226,6 +226,20 @@ fun HorizontalDivide(
     )
 }
 
+@Composable
+fun VerticalDivide(
+    modifier: Modifier = Modifier,
+    style: DivideStyle = LocalHorDivideStyle.current
+) {
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .padding(start = style.padding, end = style.padding)
+            .width(style.size)
+            .background(style.color)
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewIconCheckBox() {
