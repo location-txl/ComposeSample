@@ -158,14 +158,14 @@ fun LayoutColumnWeightSample(back: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun LayoutColumnSamplePreview() {
-    LayoutRowSample {
+    LayoutColumnSample {
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LayoutColumnWeightSamplePreview() {
-    LayoutRowWeightSample {
+    LayoutColumnSample {
 
     }
 }
