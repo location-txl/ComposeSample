@@ -58,7 +58,7 @@ inline fun LayoutHome(crossinline navigateRotate: (String) -> Unit) {
     LazyVerticalGrid(columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.Center,
         content = {
-            itemsIndexed(LayoutScreen.LayoutItems) { index, item ->
+            itemsIndexed(LayoutScreen.LayoutItems) { _, item ->
                 Box(
                     contentAlignment = Alignment.Center,
                 ) {

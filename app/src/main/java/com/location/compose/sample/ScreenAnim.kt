@@ -60,7 +60,7 @@ inline fun AnimHome(crossinline navigateRotate: (String) -> Unit) {
     LazyVerticalGrid(columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.Center,
         content = {
-            itemsIndexed(ScreenAnim.AnimItems) { index, item ->
+            itemsIndexed(ScreenAnim.AnimItems) { _, item ->
                 Box(
                     contentAlignment = Alignment.Center,
                 ) {

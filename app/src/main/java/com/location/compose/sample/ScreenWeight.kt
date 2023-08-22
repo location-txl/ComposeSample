@@ -86,10 +86,7 @@ fun NavGraphBuilder.weightGraph(navigateRotate: (String) -> Unit, back: () -> Un
 
 }
 
-@Composable
-fun WeightGraph(nav: NavHostController, modifier: Modifier = Modifier, items: List<String>) {
 
-}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

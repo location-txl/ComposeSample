@@ -80,7 +80,7 @@ fun AnimTweenSpecSample(back: () -> Unit) {
 
          Button(onClick = {
              val customEasing = CubicBezierEasing(0.17f,0.67f, 1f, -0.38f)
-             val cE = Easing { fraction ->
+             @Suppress("UNUSED_VARIABLE") val cE = Easing { fraction ->
                  /**
                   * [fraction] 时间完成度
                   * @return 动画完成度

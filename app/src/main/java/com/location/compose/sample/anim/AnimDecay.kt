@@ -115,9 +115,6 @@ fun AnimDecaySample(back: () -> Unit) {
 
 }
 
-fun TextField(value: Float, onValueChange: () -> Unit) {
-
-}
 
 @Preview
 @Composable

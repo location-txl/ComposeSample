@@ -60,7 +60,7 @@ inline fun ModifierHome(crossinline navigateRotate: (String) -> Unit) {
     LazyVerticalGrid(columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.Center,
         content = {
-            itemsIndexed(ScreenModifier.ModifierItems) { index, item ->
+            itemsIndexed(ScreenModifier.ModifierItems) { _, item ->
                 Box(
                     contentAlignment = Alignment.Center,
                 ) {
