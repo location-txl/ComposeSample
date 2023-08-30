@@ -137,7 +137,8 @@ fun AnimatedCrossfadeSample(back: () -> Unit) {
             }
             Crossfade(
                 showRed,
-                animationSpec = tween(3000)
+                label = "变换动画",
+                animationSpec = tween(3000),
             ) {
                 if(it){
                     Box(
@@ -183,13 +184,14 @@ fun AnimatedContentSample(back: () -> Unit) {
 
             AnimatedContent(
                 showRed,
+                label = "testAnim",
                 /**
                  * 配置动画参数
                  * with前是入场动画
                  * with后是出场动画
                  */
                 transitionSpec = {
-                    slideIn(
+                    (slideIn(
                         animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
                     ) {
                         if(true isTransitioningTo false){
@@ -197,16 +199,18 @@ fun AnimatedContentSample(back: () -> Unit) {
                         }else{
                             IntOffset(0, it.height)
                         }
-                    }  + fadeIn(tween(durationMillis = 1500, easing = LinearEasing)) with slideOut(
-                        animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
-                    ) {
-                        if(true isTransitioningTo false) {
-                            IntOffset(0, it.height)
-                        }else{
-                            IntOffset(0, -it.height)
-                        }
-                    } + fadeOut(tween(durationMillis = 1500, easing = LinearEasing))
+                    }  + fadeIn(tween(durationMillis = 1500, easing = LinearEasing))).togetherWith(
+                        slideOut(
+                            animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+                        ) {
+                            if (true isTransitioningTo false) {
+                                IntOffset(0, it.height)
+                            } else {
+                                IntOffset(0, -it.height)
+                            }
+                        } + fadeOut(tween(durationMillis = 1500, easing = LinearEasing)))
                 }
+
                 ) {
                 if(it){
                     Image(
@@ -228,20 +232,21 @@ fun AnimatedContentSample(back: () -> Unit) {
             }
 
             var num by remember {
-                mutableStateOf(0)
+                mutableIntStateOf(0)
             }
 
             AnimatedContent(
                 targetState = num,
+                label = "num",
                 transitionSpec = {
                     slideIn(
                         animationSpec = tween(durationMillis = 100, easing = LinearEasing)
                     ){
-                            IntOffset(0, it.height)
-                    } with slideOut(
+                        IntOffset(0, it.height)
+                    } togetherWith slideOut(
                         animationSpec = tween(durationMillis = 100, easing = LinearEasing)
                     ){
-                            IntOffset(0, -it.height)
+                        IntOffset(0, -it.height)
                     }
                 }
             ) {

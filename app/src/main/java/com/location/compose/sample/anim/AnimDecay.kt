@@ -59,7 +59,7 @@ fun AnimDecaySample(back: () -> Unit) {
             }
 
             var velocity by remember {
-                mutableStateOf(1000f)
+                mutableFloatStateOf(1000f)
             }
             var job:Job? = remember {
                 null
