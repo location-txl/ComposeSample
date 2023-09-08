@@ -3,6 +3,6 @@
 	<string name="screen_weight">控件</string>
 	<string name="screen_layout">布局</string>
 	<string name="screen_anim">动画</string>
-	<string name="screen_modifier">Modifier</string>
+	<string name="screen_other">其他</string>
 	<string name="weight_text">从资源加载字符串</string>
 </resources>

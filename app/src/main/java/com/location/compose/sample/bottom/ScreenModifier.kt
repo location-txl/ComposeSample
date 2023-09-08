@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.location.compose.sample.modifier.ScreenModifierParseSample
+import com.location.compose.sample.other.ScreenCompositionLocalSample
 
 /**
  *
@@ -29,6 +30,7 @@ sealed class ScreenModifier(
         const val START = "Modifier/home"
         val ModifierItems: List<ScreenModifier> = listOf(
             ScreenParseModifier,
+            ScreenCompositionLocal,
         )
     }
 }
@@ -40,6 +42,12 @@ private object ScreenParseModifier :
             ScreenModifierParseSample(back)
         })
 
+private data object ScreenCompositionLocal:
+    ScreenModifier("CompositionLocal",
+        routeName = "Modifier/compositionLocal",
+        content = { _, back, _ ->
+            ScreenCompositionLocalSample(back)
+        })
 
 
 

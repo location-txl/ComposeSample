@@ -27,7 +27,7 @@ import com.location.compose.sample.bottom.HomeScreen
  * time：2022/9/1 18:44
  * description：
  */
-fun NavGraphBuilder.modifierGraph(navigateRotate: (String) -> Unit, back: () -> Unit) {
+fun NavGraphBuilder.otherGraph(navigateRotate: (String) -> Unit, back: () -> Unit) {
     navigation(
         route = HomeScreen.Modifier.rotateName,
         startDestination = ScreenModifier.START

@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
                         navController.popBackStack()
                     }
                 )
-                modifierGraph(
+                otherGraph(
                     navigateRotate = {
                         route ->
                         navController.navigate(route)
