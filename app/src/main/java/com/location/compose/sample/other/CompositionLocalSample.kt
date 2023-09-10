@@ -1,11 +1,9 @@
 package com.location.compose.sample.other
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,18 +12,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.location.compose.sample.common.CheckBoxText
 import com.location.compose.sample.common.HorizontalDivide
@@ -37,7 +33,8 @@ import com.location.compose.sample.common.TitleBar
  * time：2023/9/4 21:05
  * description：
  */
-var boxColor = Color.Red
+var boxTxt = "没有重组"
+
 @Composable
 fun ScreenCompositionLocalSample(back: () -> Unit) {
     TitleBar(title = "CompositionLocal使用", back = back) {
@@ -75,21 +72,44 @@ fun ScreenCompositionLocalSample(back: () -> Unit) {
 
 
             HorizontalDivide()
-            Text(text = "CompositionLocal和staticCompositionLocal的区别",style = MaterialTheme.typography.h6)
-            Text(text = "staticCompositionLocal是一个静态的CompositionLocal 当它的值发生变化时 整个作用域都会触发重组 而CompositionLocal的值发生变化时 只会让依赖它的composable触发重组",
-                style = MaterialTheme.typography.body1)
+            CompositionLocalCompare()
+        }
+
+    }
+
+}
+
+val staticLocalBgColor = compositionLocalOf { Color.Green }
 
 
-            var useStaticCompositionLocal  by remember {
-                mutableStateOf(false)
-            }
-            CheckBoxText(text = "是否使用staticCompositionLocalOf", initChecked = useStaticCompositionLocal, onCheckedChange = {
-                useStaticCompositionLocal = it
-                boxColor = Color.Red
-            })
-            var staticTextColor by remember {
-                mutableStateOf(Color.Green)
-            }
+
+@Composable
+private fun CompositionLocalCompare() {
+    val state = rememberScrollState()
+    Column(
+        modifier = Modifier.verticalScroll(state)
+    ) {
+
+
+    Text(
+        text = "CompositionLocal和staticCompositionLocal的区别",
+        style = MaterialTheme.typography.h6
+    )
+    Text(
+        text = "staticCompositionLocal是一个静态的CompositionLocal 当它的值发生变化时 整个作用域都会触发重组 而CompositionLocal的值发生变化时 只会让依赖它的composable触发重组",
+        style = MaterialTheme.typography.body1
+    )
+    var useStaticCompositionLocal by remember {
+        mutableStateOf(false)
+    }
+    CheckBoxText(
+        text = "是否使用staticCompositionLocalOf",
+        initChecked = useStaticCompositionLocal,
+        onCheckedChange = {
+            useStaticCompositionLocal = it
+            boxTxt = "没有重组"
+        })
+
 //            val staticLocalBgColor by remember(useStaticCompositionLocal) {
 //                derivedStateOf{
 //                    if(useStaticCompositionLocal){
@@ -100,39 +120,87 @@ fun ScreenCompositionLocalSample(back: () -> Unit) {
 //                }
 //            }
 
-            val staticLocalBgColor  = compositionLocalOf{ Color.Green }
-            CompositionLocalProvider(
-                staticLocalBgColor provides staticTextColor
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(300.dp)
-                        .background(boxColor),
-                    contentAlignment = Alignment.Center){
 
-                }
-                extracted(staticLocalBgColor.current)
-            }
-            Button(onClick = {
-                /**
-                 * 如果整个作用域触发重组 那么Box的颜色就会变化
-                 */
-                staticTextColor = Color.Black
-            }) {
-                Text(text = "更新颜色")
-            }
+        var staticTextColor by remember {
+            mutableStateOf(Color.Green)
+        }
+    CompositionLocalProvider(
+        staticLocalBgColor provides staticTextColor
+    ) {
+        CompositionLocalTest(staticLocalBgColor.current, boxTxt){
+            CompositionLocalTest(Color.Gray, boxTxt)
 
-            boxColor = Color.Gray
+        }
+//        TaggedBox("Wrapper: ${boxTxt}", 400.dp, Color.Red) {
+//            TaggedBox("Middle: ${boxTxt}", 300.dp, staticLocalBgColor.current) {
+//                TaggedBox("Inner: ${boxTxt}", 200.dp, Color.Yellow)
+//            }
+//        }
+    }
+    Button(onClick = {
+        /**
+         * 如果整个作用域触发重组 那么Box的颜色就会变化
+         */
+        staticTextColor = Color.Gray
+    }) {
+        Text(text = "更新颜色")
+    }
+    boxTxt = "发生重组"
+    }
+}
 
 
-
+@Composable
+private fun TaggedBox(tag:String, size: Dp, background: Color, content: @Composable () -> Unit = {}) {
+    Column(
+        modifier = Modifier
+            .size(size)
+            .background(background),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = tag)
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
         }
     }
 }
 
 @Composable
-private fun extracted(
-    textColor:Color,
+private fun CompositionLocalTest(
+    textColor: Color,
+    text:String,
+    content:@Composable ()->Unit = {}
 ) {
-    Text(text = "text", color = textColor)
+        Box(
+            modifier = Modifier
+                .size(300.dp),
+//                .background(boxColor),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = text, color = textColor, style = MaterialTheme.typography.body1)
+        }
+    Box{
+        content()
+    }
+
+}
+
+
+
+
+@Preview
+@Composable
+fun ScreenCompositionLocalSamplePreview(){
+    ScreenCompositionLocalSample(back = {})
+}
+
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun CompositionLocalComparePreview() {
+    CompositionLocalCompare()
 }
