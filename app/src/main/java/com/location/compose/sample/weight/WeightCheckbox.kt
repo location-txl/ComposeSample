@@ -1,8 +1,8 @@
 package com.location.compose.sample.weight
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +28,7 @@ fun WeightCheckbox(back: () -> Unit) {
 
             }
 
-            Text(text = "自定义复选框", style = MaterialTheme.typography.h6)
+            Text(text = "自定义复选框", style = MaterialTheme.typography.titleMedium)
             var checked by remember {
                 mutableStateOf(false)
             }

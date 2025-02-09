@@ -1,9 +1,10 @@
 package com.location.compose.sample.weight
 
+import android.R.attr.onClick
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,15 +35,16 @@ fun WeightSnackBar(back: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CustomSnackBar(modifier: Modifier = Modifier) {
-    val scaffoldState = rememberScaffoldState()
+        val scaffoldState = rememberBottomSheetScaffoldState()
+    val snackbarHostState = scaffoldState.snackbarHostState
     val rememberCoroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = modifier,
-        scaffoldState = scaffoldState,
         snackbarHost = {
-            SnackbarHost(hostState = it) {
+            SnackbarHost(hostState = snackbarHostState) {
                 Column(
                     modifier = Modifier
                         .padding(10.dp)
@@ -52,7 +54,7 @@ private fun CustomSnackBar(modifier: Modifier = Modifier) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Spacer(modifier = Modifier.height(10.dp))
-                    Text(text = "消息:${it.message}")
+                    Text(text = "消息:${it.visuals.message}")
                     Spacer(modifier = Modifier.width(10.dp))
                     Row() {
                         TextButton(
@@ -62,7 +64,7 @@ private fun CustomSnackBar(modifier: Modifier = Modifier) {
                         Spacer(modifier = Modifier.width(5.dp))
                         TextButton(
                             onClick = { it.performAction() }) {
-                            Text(text = it.actionLabel?:"知道了")
+                            Text(text = it.visuals.actionLabel?:"知道了")
                         }
                     }
                 }
@@ -70,7 +72,9 @@ private fun CustomSnackBar(modifier: Modifier = Modifier) {
         }
     ) {
 
-        Button(onClick = {
+        Button(
+            modifier = Modifier.padding(it),
+            onClick = {
             rememberCoroutineScope.launch {
                 scaffoldState.snackbarHostState.showSnackbar("消息")
             }
@@ -83,17 +87,16 @@ private fun CustomSnackBar(modifier: Modifier = Modifier) {
 
 @Composable
 private fun CommonSnackBar(modifier: Modifier = Modifier) {
-    val scaffoldState = rememberScaffoldState()
+    val scaffoldState = remember { SnackbarHostState() }
     val rememberCoroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = modifier,
-        scaffoldState = scaffoldState,
-        snackbarHost = { snackbarHostState ->
-            SnackbarHost(hostState = snackbarHostState) {
+        snackbarHost = {
+            SnackbarHost(hostState = scaffoldState) {
                 Snackbar(snackbarData = it)
             }
         }) {
-        Column {
+        Column(Modifier.padding(it)) {
             Text(text = "官方的snackBar")
             var status by remember {
                 mutableStateOf(0)
@@ -104,7 +107,7 @@ private fun CommonSnackBar(modifier: Modifier = Modifier) {
                     status = 1
                     rememberCoroutineScope.launch {
                         val result =
-                            scaffoldState.snackbarHostState.showSnackbar(
+                            scaffoldState.showSnackbar(
                                 "snackBar",
                                 actionLabel = "按钮"
                             )

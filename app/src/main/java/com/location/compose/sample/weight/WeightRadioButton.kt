@@ -3,9 +3,9 @@ package com.location.compose.sample.weight
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,14 +23,14 @@ import com.location.compose.sample.scope.radioGroupScopeOf
 fun WeightRadioButton(back: () -> Unit) {
     TitleBar(title = "单选按钮", back = back) {
         Column {
-            Text(text = "官方的单选按钮", style = MaterialTheme.typography.h6)
+            Text(text = "官方的单选按钮", style = MaterialTheme.typography.titleMedium)
             var select by remember {
                 mutableStateOf(false)
             }
             RadioButton(selected = select, onClick = {
                 select = !select
             })
-            Text(text = "自定义RadioGroup作用域", style = MaterialTheme.typography.h6)
+            Text(text = "自定义RadioGroup作用域", style = MaterialTheme.typography.titleMedium)
             val radioGroupScope = remember {
                radioGroupScopeOf {
 
@@ -49,7 +49,7 @@ fun WeightRadioButton(back: () -> Unit) {
                 }
             }
 
-            Text(text = "自定义RadioGroup作用域 文字也可点击 并默认选择索引2", style = MaterialTheme.typography.h6)
+            Text(text = "自定义RadioGroup作用域 文字也可点击 并默认选择索引2", style = MaterialTheme.typography.titleMedium)
             val radioGroupScope2 = remember {
                 radioGroupScopeOf(2) {
 

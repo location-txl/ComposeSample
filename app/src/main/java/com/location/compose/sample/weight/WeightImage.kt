@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +31,7 @@ fun WeightImage(back: () -> Unit) {
     TitleBar(title = "图片", back = back) {
         val rememberScrollState = rememberScrollState()
         Column(modifier = Modifier.verticalScroll(rememberScrollState)) {
-            Text(text = "加载资源图片", style = MaterialTheme.typography.h6)
+            Text(text = "加载资源图片", style = MaterialTheme.typography.titleMedium)
             Image(painter = painterResource(id = R.drawable.image), contentDescription = "删除图片")
             Image(
                 painter = painterResource(id = R.drawable.image),
@@ -42,7 +42,7 @@ fun WeightImage(back: () -> Unit) {
                     .background(Color.Red),
                 contentScale = ContentScale.None
             )
-            Text(text = "加载网络图片", style = MaterialTheme.typography.h6)
+            Text(text = "加载网络图片", style = MaterialTheme.typography.titleMedium)
             AsyncImage(
                 model = "https://t7.baidu.com/it/u=3569419905,626536365&fm=193&f=GIF",
                 contentDescription = null

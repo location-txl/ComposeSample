@@ -3,16 +3,24 @@ package com.location.compose.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -21,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.location.compose.sample.bottom.HomeScreen
 import com.location.compose.sample.ui.theme.ComposeSampleTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val homeList by lazy {
@@ -29,12 +38,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch{
+            enableEdgeToEdge()
+        }
         setContent {
             ComposeSampleTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     Home()
                 }
@@ -55,6 +67,7 @@ class MainActivity : ComponentActivity() {
                 startDestination = HomeScreen.Weight.rotateName,
                 modifier = Modifier.padding(it)
             ) {
+                // dsa
 
                 weightGraph(
                     navigateRotate = { route ->
@@ -101,14 +114,15 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun BottomBar(nav: NavHostController) {
-        BottomNavigation {
+        BottomAppBar {
             val navBackStackEntry by nav.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
 
             homeList.forEach {
                 val checked =
                     currentDestination?.hierarchy?.any { any -> any.route == it.rotateName } == true
-                BottomNavigationItem(
+
+                NavigationBarItem(
                     icon = {
                         Icon(
                             Icons.Filled.Favorite,
@@ -120,7 +134,7 @@ class MainActivity : ComponentActivity() {
                         //不同的颜色
                         Text(
                             stringResource(it.titleId),
-                            color = if (checked) Color.White else Color.Black
+                            color = if (checked) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     },
                     onClick = {
@@ -136,6 +150,10 @@ class MainActivity : ComponentActivity() {
                     })
             }
         }
+
+//        BottomAppBar {
+//
+//        }
     }
 }
 

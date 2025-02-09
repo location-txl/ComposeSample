@@ -1,5 +1,7 @@
 package com.location.compose.sample.common
 
+import android.R.attr.navigationIcon
+import android.R.attr.padding
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -10,7 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
@@ -111,27 +113,41 @@ inline fun LazyListScope.itemTitle(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TitleBar(title: String, back: () -> Unit, content: @Composable () -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(title)
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            back()
-                        }
-                    ) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
+    Column {
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
+        ) {
+            IconButton(onClick = {
+                back()
+            }) {
+                Icon(Icons.Filled.ArrowBack, null)
+            }
+
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
             )
         }
-    ){
-        Box(Modifier.padding(it)) {
+
+
+//        TopAppBar(title = {
+//            Text(title)
+//        },
+//            navigationIcon = {
+//            IconButton(onClick = {
+//                back()
+//            }) {
+//                Icon(Icons.Filled.ArrowBack, null)
+//            }
+//        })
+        Box {
             content()
         }
     }
@@ -304,7 +320,7 @@ fun testEdittext() {
         items(35) {
             Text(
                 text = "占位符$it",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.labelMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )

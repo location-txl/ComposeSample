@@ -11,9 +11,9 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.CombinedModifier
@@ -52,7 +52,7 @@ fun ScreenModifierParseSample(back: () -> Unit) {
         Column {
             Text(
                 text = "点击添加Modifier 添加Modifier 可以看到对应的Modifier结构",
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.bodyMedium
             )
             var parseModifier: Modifier by remember {
                 mutableStateOf(Modifier)
@@ -98,7 +98,7 @@ fun ScreenModifierParseSample(back: () -> Unit) {
                                     ) {
                                         Text(
                                             text = "CombinedModifier",
-                                            style = MaterialTheme.typography.body1
+                                            style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
                                     HorizontalDivide(modifier = Modifier.width(20.dp))
@@ -116,7 +116,7 @@ fun ScreenModifierParseSample(back: () -> Unit) {
                                 ) {
                                     Text(
                                         text = modifier.name,
-                                        style = MaterialTheme.typography.body1
+                                        style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
                             }
@@ -180,7 +180,7 @@ fun ShowModifierSelectDialog(
                 .padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = text)
-            Text(text = "点击添加Modifier", style = MaterialTheme.typography.h5)
+            Text(text = "点击添加Modifier", style = MaterialTheme.typography.titleSmall)
             LazyVerticalGrid(columns = GridCells.Fixed(3)){
                 items(
                     modifierList,

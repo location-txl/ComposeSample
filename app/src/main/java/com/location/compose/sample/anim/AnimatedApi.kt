@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -130,7 +130,7 @@ fun AnimatedCrossfadeSample(back: () -> Unit) {
                     通过targetState来切换
                     不可以配置动画参数 动画参数为淡入淡出
                 """.trimIndent(),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyMedium,
             )
             var showRed by remember {
                 mutableStateOf(true)
@@ -175,7 +175,7 @@ fun AnimatedContentSample(back: () -> Unit) {
                     对内容的变化进行动画处理
                     可以自定义内容进入和退出的动画参数
                 """.trimIndent(),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyMedium,
             )
 
             var showRed by remember {

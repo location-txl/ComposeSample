@@ -3,7 +3,7 @@ package com.location.compose.sample.weight
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,13 +39,13 @@ fun WeightText(back: () -> Unit) {
             Text(text = "粗斜体文本", fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)
             Text(
                 text = "下划线文字",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 textDecoration = TextDecoration.Underline
             )
             Text(
                 text = "删除线文字",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 textDecoration = TextDecoration.LineThrough
             )
@@ -63,13 +63,13 @@ fun WeightText(back: () -> Unit) {
             //超长文字...
             Text(
                 text = "《狂人日记》是鲁迅创作的第一个短篇白话文日记体小说，也是中国第一部现代白话小说，写于1918年4月。该文首发于1918年5月15日4卷5号的《新青年》月刊，后收入《呐喊》集，编入《鲁迅全集》第一卷",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = "超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断超长文字直接截断",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Clip
             )
