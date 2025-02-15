@@ -8,5 +8,5 @@ import kotlin.random.Random
 //        color
 //    }
 
-val Color.Companion.randomColor
+val randomColor
     get() = Color(Random.nextInt(0,255),Random.nextInt(0,255),Random.nextInt(0,255))

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.location.compose.sample.modifier.ScreenModifierParseSample
 import com.location.compose.sample.other.ScreenCompositionLocalSample
+import com.location.compose.sample.other.recomposition.ScreenRecompositionSample
 
 /**
  *
@@ -31,6 +32,7 @@ sealed class ScreenModifier(
         val ModifierItems: List<ScreenModifier> = listOf(
             ScreenParseModifier,
             ScreenCompositionLocal,
+            ScreenRecomposition,
         )
     }
 }
@@ -49,6 +51,15 @@ private data object ScreenCompositionLocal:
             ScreenCompositionLocalSample(back)
         })
 
+
+/**
+ * https://mp.weixin.qq.com/s/U8vYckZLX3xjxFJk100Xxw
+ */
+private object ScreenRecomposition: ScreenModifier("重组作用域",
+    routeName = "Modifier/recomposition",
+    content = { _, back, _ ->
+        ScreenRecompositionSample(back)
+    })
 
 
 

@@ -30,11 +30,11 @@ fun TestInline(){
             count++
         }) {
             Column {
-                Text(text = "count:${count}", color = Color.randomColor)
-                Text(text = "noCount", color = Color.randomColor)
+                Text(text = "count:${count}", color = randomColor)
+                Text(text = "noCount", color = randomColor)
             }
         }
-        Text(text = "hello compose", color = Color.randomColor)
-        Text(text = "hello count:$count", color = Color.randomColor)
+        Text(text = "hello compose", color = randomColor)
+        Text(text = "hello count:$count", color = randomColor)
     }
 }
